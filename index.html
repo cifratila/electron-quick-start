@@ -3,17 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script>
+        $(document).ready(function() {
+            $('#btnopen').on('click', function() {
+                $('#ifile').trigger('click');
+            });
+            $('#btnsave').on('click', function() {
+                const {dialog} = require('electron').remote
+                dialog.showSaveDialog(
+                    {
+                        'title': 'Save'
+                    }
+                )
+            });
+        });
+    </script>
   </head>
   <body>
     <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+    <input id="ifile" type="file" style="display: none" />
+    <button id="btnopen">Open File Dialog</button>
+    <button id="btnsave">Save File Dialog</button>
   </body>
 </html>
